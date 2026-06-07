@@ -1,0 +1,9 @@
+# Production overrides — override just what differs
+replicaCount: 5
+image:
+  tag: "1.2.0"  # pin to exact release
+resources:
+  limits: { cpu: "2", memory: "2Gi" }
+  requests: { cpu: "500m", memory: "512Mi" }
+autoscaling:
+  maxReplicas: 20

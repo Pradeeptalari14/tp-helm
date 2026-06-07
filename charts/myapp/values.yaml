@@ -1,0 +1,37 @@
+replicaCount: 2
+
+image:
+  repository: myregistry/myapp
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts: [{ host: myapp.example.com, paths: [{ path: /, pathType: Prefix }] }]
+  tls: [{ secretName: myapp-tls, hosts: [myapp.example.com] }]
+
+resources:
+  limits: { cpu: 500m, memory: 512Mi }
+  requests: { cpu: 100m, memory: 128Mi }
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+serviceAccount:
+  create: true
+  name: myapp-sa
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
