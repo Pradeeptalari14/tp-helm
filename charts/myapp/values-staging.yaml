@@ -1,0 +1,6 @@
+# Staging overrides
+replicaCount: 2
+image:
+  tag: "latest"
+ingress:
+  hosts: [{ host: myapp-staging.example.com, paths: [{ path: /, pathType: Prefix }] }]

@@ -1,0 +1,8 @@
+apiVersion: v2
+name: myapp
+description: "Production-ready Helm chart for MyApp"
+type: application
+version: 1.0.0
+appVersion: "latest"
+maintainers: [{ name: SRE Team, email: sre@example.com }]
+keywords: [sre, microservice, production]
